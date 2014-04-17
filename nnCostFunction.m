@@ -63,8 +63,15 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+X = [ones(m, 1) X];  %%% Add bias terms
 
+A2 = [ones(m, 1) sigmoid( X*Theta1' )];
 
+HYP = sigmoid( A2 * Theta2' );
+
+labels = 1:10;
+
+y_vec = repmat(y, size(labels)) == repmat(labels, size(y));
 
 
 
