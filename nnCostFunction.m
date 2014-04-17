@@ -65,18 +65,22 @@ Theta2_grad = zeros(size(Theta2));
 
 X = [ones(m, 1) X];  %%% Add bias terms
 
-A2 = [ones(m, 1) sigmoid( X*Theta1' )];
+A2 = [ones(m, 1) sigmoid( X*Theta1' )];  %%% g(z2) with bias terms
 
-HYP = sigmoid( A2 * Theta2' );
+HYP = sigmoid( A2 * Theta2' );  %%% hypothesis = g(z3) 
 
-labels = 1:10;
+labels = 1:num_labels;  %%% assuming labels are sequential 1, 2,...
 
-y_vec = repmat(y, size(labels)) == repmat(labels, size(y));
+y_vec = repmat(y, size(labels)) == repmat(labels, size(y)); %%% convert each y to boolean vector
 
+inner_term = -y_vec.*log(HYP) - (1-y_vec).*log(1-HYP);  %%% term to sum across for J(theta)
 
+J = sum(sum(inner_term, 2))./m;  %%% sum across labels and then samples
 
+reg_cost = sum(sum(Theta1(:, 2:end).^2, 2)) + sum(sum(Theta2(:, 2:end).^2, 2));
+reg_cost = reg_cost*lambda./(2*m);
 
-
+J = J + reg_cost;
 
 
 
