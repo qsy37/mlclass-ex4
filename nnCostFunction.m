@@ -85,9 +85,6 @@ J = J + reg_cost;
 
 %%%% Begin Backpropagation:
 
-Delta1 = 0;
-Delta2 = 0;
-
 delta3 = HYP - y_vec;
 delta2 = delta3*Theta2(:,2:end).*sigmoidGradient(X*Theta1');
 
