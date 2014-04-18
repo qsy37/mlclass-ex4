@@ -85,22 +85,6 @@ J = J + reg_cost;
 
 %%%% Begin Backpropagation:
 
-%delta2 = zeros(size(Theta2, 2), 1);
-%delta3 = (HYP - y_vec)';
-%
-%for t = 1:m
-%    z2 = Theta1*X(t, :)';
-%    delta2 = delta2 + (Theta2'*delta3(:,t)).*[1; sigmoidGradient(z2)];
-%
-%    Theta2_grad = Theta2_grad + delta3(:,t)*[1; z2]';
-%    
-%    Theta1_grad = Theta1_grad + delta2(2:end)*X(t, :);
-%
-%end
-%
-%Theta2_grad = (Theta2_grad + lambda*Theta2)./m;
-%Theta1_grad = (Theta1_grad + lambda*Theta1)./m;
-
 Delta1 = 0;
 Delta2 = 0;
 
