@@ -88,32 +88,19 @@ J = J + reg_cost;
 Delta1 = 0;
 Delta2 = 0;
 
-for t = 1:m
-    a1 = X(t, :)';
+delta3 = HYP - y_vec;
+delta2 = delta3*Theta2(:,2:end).*sigmoidGradient(X*Theta1');
 
-    z2 = Theta1*a1;
-    a2 = [1; sigmoid(z2)];
+Theta2_grad = delta3'*A2./m; 
+Theta1_grad = delta2'*X./m;
 
-    z3 = Theta2*a2;
-    a3 = sigmoid(z3);  %%% a3 = hyp(x)
-
-    delta3 = a3 - y_vec(t, :)';
-
-    delta2 = Theta2(:,2:end)'*delta3.*sigmoidGradient(z2);
-
-    Delta2 = Delta2 + delta3*a2';
-
-    Delta1 = Delta1 + delta2*a1';
-end
 
 reg1_term = lambda*Theta1(:,2:end)./m;
 reg2_term = lambda*Theta2(:,2:end)./m;
 
-Theta1_grad = Delta1./m;
-Theta2_grad = Delta2./m;
-
 Theta1_grad(:,2:end) = Theta1_grad(:,2:end) + reg1_term;
 Theta2_grad(:,2:end) = Theta2_grad(:,2:end) + reg2_term;
+
 
 % -------------------------------------------------------------
 
