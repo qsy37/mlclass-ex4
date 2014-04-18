@@ -122,8 +122,14 @@ for t = 1:m
     Delta1 = Delta1 + delta2*a1';
 end
 
-Theta1_grad = Delta1./m + lambda*Theta1./m;
-Theta2_grad = Delta2./m + lambda*Theta2./m;
+reg1_term = lambda*Theta1(:,2:end)./m;
+reg2_term = lambda*Theta2(:,2:end)./m;
+
+Theta1_grad = Delta1./m;
+Theta2_grad = Delta2./m;
+
+Theta1_grad(:,2:end) = Theta1_grad(:,2:end) + reg1_term;
+Theta2_grad(:,2:end) = Theta2_grad(:,2:end) + reg2_term;
 
 % -------------------------------------------------------------
 
